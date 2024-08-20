@@ -4,8 +4,12 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
-const authMiddleware = require("../middlewares/authMiddleware");
+const registrationMiddleware = require("../middlewares/registrationMiddleware");
+const loginMiddleware = require("../middlewares/loginMiddleware");
+const userController = require('../controllers/userController');
 
-router.post('/register',authMiddleware ,authController.register);
+
+router.post('/register',registrationMiddleware ,authController.register);
+router.post('/login', authController.login);
 
 module.exports = router; // router is exported to be used in app.js

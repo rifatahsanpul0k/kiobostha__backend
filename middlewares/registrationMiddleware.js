@@ -1,6 +1,8 @@
 const User = require("../models/User");
 
-const authMiddleware = async (req, res, next) => {
+
+const registrationMiddleware = async (req, res, next) => {
+    
     try {
         const { name, email, password, confirm_password } = req.body;
         const findEmail = await User.findOne({ email });
@@ -11,6 +13,7 @@ const authMiddleware = async (req, res, next) => {
         if (password.length < 6) throw new Error("Password should be at least 6 characters long");
         if (!confirm_password) throw new Error("Confirm your password");
         if (password !== confirm_password) throw new Error("Passwords do not match");
+        
         next();
     } catch (err) {
         res.status(400).json({
@@ -20,4 +23,4 @@ const authMiddleware = async (req, res, next) => {
     }
 }
 
-module.exports = authMiddleware; // authMiddleware is exported to be used in routes/authRoutes.js
+module.exports = registrationMiddleware; // authMiddleware is exported to be used in routes/authRoutes.js
